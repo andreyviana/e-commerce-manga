@@ -19,33 +19,33 @@ import com.api.emanga.model.GeneroModel;
 import com.api.emanga.service.GeneroService;
 
 @RestController
-@RequestMapping("/api/emanga")
+@RequestMapping("/api/emanga/generos")
 public class GeneroController {
 	
 	@Autowired private GeneroService service;
 	
-	@GetMapping("/generos")
+	@GetMapping
 	public ResponseEntity<List<GeneroModel>> getGeneros() {
 		return !service.getGeneros().isEmpty() ? ResponseEntity.ok(service.getGeneros()) : ResponseEntity.noContent().build();
 	}
 
-	@GetMapping("/generos/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<Optional<GeneroModel>> getGenroById(@PathVariable("id") Integer id) {
 		return service.getGeneroById(id).isPresent() ? ResponseEntity.ok(service.getGeneroById(id)) : ResponseEntity.notFound().build();
 	}
 
-	@PostMapping("/generos")
+	@PostMapping
 	public ResponseEntity<GeneroModel> adicionarGenero(@RequestBody GeneroModel genero) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.adicionarGenero(genero));
 	}
 
-	@PutMapping("/generos/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<Optional<GeneroModel>> atualizarGenero(@PathVariable("id") Integer id, @RequestBody GeneroModel genero) {
 		return service.atualizarGenero(id, genero).isPresent() ? ResponseEntity.ok(service.atualizarGenero(id, genero))
 				: ResponseEntity.notFound().build();
  	}
 
-	@DeleteMapping("/generos/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> excluirGenero(@PathVariable("id") Integer id) {
 		return service.excluirGenero(id) ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
 	}
