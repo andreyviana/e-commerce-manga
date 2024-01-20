@@ -13,7 +13,7 @@ CREATE TABLE usuarios (
 
 CREATE TABLE generos (
   id INT PRIMARY KEY AUTO_INCREMENT,
-  genero VARCHAR(30) NOT NULL,
+  genero VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE mangas (
