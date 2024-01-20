@@ -2,12 +2,18 @@ package com.api.emanga.model;
 
 
 import java.math.BigDecimal;
+import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,7 +22,7 @@ public class MangaModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Column(length = 100, nullable = false)
 	private String titulo;
 
@@ -35,10 +41,21 @@ public class MangaModel {
 	@Column(length = 100)
 	private String autores;
 	
+	@ManyToMany(fetch = FetchType.LAZY,
+		cascade = {
+			CascadeType.PERSIST,
+			CascadeType.MERGE
+		})
+	@JoinTable(
+		name = "generos_mangas",
+		joinColumns = @JoinColumn(name = "id_manga"),
+		inverseJoinColumns = @JoinColumn(name = "id_genero"))
+	private Set<GeneroModel> generos;
+
 	public Integer getId() {
 		return this.id;
 	}
-	
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -89,5 +106,13 @@ public class MangaModel {
 	
 	public void setAutores(String autores) {
 		this.autores = autores;
+	}
+
+	public Set<GeneroModel> getGeneros() {
+		return this.generos;
+	}
+
+	public void setGeneros(Set<GeneroModel> generos) {
+		this.generos = generos;
 	}
 }
