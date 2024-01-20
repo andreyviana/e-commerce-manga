@@ -26,12 +26,12 @@ public class GeneroController {
 	
 	@GetMapping("/generos")
 	public ResponseEntity<List<GeneroModel>> getGeneros() {
-		return ResponseEntity.ok(service.getGeneros());
+		return !service.getGeneros().isEmpty() ? ResponseEntity.ok(service.getGeneros()) : ResponseEntity.noContent().build();
 	}
 
 	@GetMapping("/generos/{id}")
 	public ResponseEntity<Optional<GeneroModel>> getGenroById(@PathVariable("id") Integer id) {
-		return ResponseEntity.ok(service.getGeneroById(id));
+		return service.getGeneroById(id).isPresent() ? ResponseEntity.ok(service.getGeneroById(id)) : ResponseEntity.notFound().build();
 	}
 
 	@PostMapping("/generos")
@@ -41,8 +41,9 @@ public class GeneroController {
 
 	@PutMapping("/generos/{id}")
 	public ResponseEntity<Optional<GeneroModel>> atualizarGenero(@PathVariable("id") Integer id, @RequestBody GeneroModel genero) {
-		return ResponseEntity.ok(service.atualizarGenero(id, genero));
-	}
+		return service.atualizarGenero(id, genero).isPresent() ? ResponseEntity.ok(service.atualizarGenero(id, genero))
+				: ResponseEntity.notFound().build();
+ 	}
 
 	@DeleteMapping("/generos/{id}")
 	public ResponseEntity<Object> excluirGenero(@PathVariable("id") Integer id) {
