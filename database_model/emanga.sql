@@ -6,9 +6,9 @@ USE emanga;
 
 CREATE TABLE usuarios (
   id INT PRIMARY KEY AUTO_INCREMENT,
-  nome_usuario VARCHAR(30) NOT NULL,
   email_usuario VARCHAR(256) UNIQUE NOT NULL,
-  senha_usuario VARCHAR(256) NOT NULL
+  senha_usuario VARCHAR(256) NOT NULL,
+  acesso_usuario VARCHAR() NOT NULL
 );
 
 CREATE TABLE generos (
