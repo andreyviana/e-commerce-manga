@@ -8,7 +8,7 @@ CREATE TABLE usuarios (
   id INT PRIMARY KEY AUTO_INCREMENT,
   email_usuario VARCHAR(256) UNIQUE NOT NULL,
   senha_usuario VARCHAR(256) NOT NULL,
-  acesso_usuario VARCHAR() NOT NULL
+  acesso_usuario VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE generos (
